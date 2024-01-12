@@ -12,11 +12,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import javax.inject.Qualifier
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface NetworkModule {
+class NetworkModule {
 
     @Provides
     @ApiEndpoint
@@ -36,16 +35,17 @@ interface NetworkModule {
         .build()
 
     @Provides
-    @Singleton
     fun provideRetrofitClient(
         @ApiEndpoint apiEndPoint: String,
         okHttpClient: OkHttpClient
-    ): CharacterService = Retrofit.Builder()
+    ): Retrofit = Retrofit.Builder()
         .baseUrl(apiEndPoint)
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
-        .create(CharacterService::class.java)
+
+    @Provides
+    fun provideCharactersService(retrofit: Retrofit): CharacterService = retrofit.create()
 
 }
 
