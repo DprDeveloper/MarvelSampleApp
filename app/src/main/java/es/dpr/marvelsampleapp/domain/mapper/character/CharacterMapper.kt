@@ -3,17 +3,16 @@ package es.dpr.marvelsampleapp.domain.mapper.character
 import es.dpr.marvelsampleapp.domain.mapper.Mapper
 import es.dpr.marvelsampleapp.domain.model.character.CharacterDomainModel
 import es.dpr.marvelsampleapp.domain.model.network.Response
-import es.dpr.marvelsampleapp.domain.model.network.Response as ResDto
-import es.dpr.marvelsampleapp.model.network.Response as ResDomainModel
 import es.dpr.marvelsampleapp.model.character.CharacterDto
 import es.dpr.marvelsampleapp.model.network.Data
+import es.dpr.marvelsampleapp.model.network.Result
 import javax.inject.Inject
 
 class CharacterMapper @Inject constructor(
-) : Mapper<ResDto<CharacterDto>, ResDomainModel<CharacterDomainModel>> {
+) : Mapper<Response<CharacterDto>, Result<CharacterDomainModel>> {
 
-    override fun toDomainModel(value: Response<CharacterDto>): es.dpr.marvelsampleapp.model.network.Response<CharacterDomainModel> {
-        return ResDomainModel(
+    override fun toDomainModel(value: Response<CharacterDto>): Result<CharacterDomainModel> {
+        return Result(
             code = value.code,
             data = Data(
                 count = value.data.count,
@@ -32,9 +31,4 @@ class CharacterMapper @Inject constructor(
             )
         )
     }
-
-    override fun toDto(value: es.dpr.marvelsampleapp.model.network.Response<CharacterDomainModel>): Response<CharacterDto> {
-        TODO("Not yet implemented")
-    }
-
 }
