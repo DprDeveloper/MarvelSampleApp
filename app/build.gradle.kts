@@ -85,6 +85,10 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.5.0")
+    //lottie
+    implementation("com.airbnb.android:lottie-compose:4.0.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

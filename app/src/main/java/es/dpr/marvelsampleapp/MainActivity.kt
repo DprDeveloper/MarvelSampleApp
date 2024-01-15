@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
+import es.dpr.marvelsampleapp.ui.screens.character.list.CharacterListScreen
 import es.dpr.marvelsampleapp.ui.theme.MarvelSampleAppTheme
 
 @AndroidEntryPoint
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    CharacterListScreen()
                 }
             }
         }
