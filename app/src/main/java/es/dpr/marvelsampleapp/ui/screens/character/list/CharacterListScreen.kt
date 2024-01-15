@@ -23,7 +23,9 @@ import es.dpr.marvelsampleapp.domain.model.common.imageUrl
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CharacterListScreen(viewModel: CharacterListViewModel = hiltViewModel()) {
+fun CharacterListScreen(
+    viewModel: CharacterListViewModel = hiltViewModel(),
+) {
     val lazyState = rememberLazyListState()
     var loading by remember { mutableStateOf(true) }
     val uiState by remember { viewModel.uiState }
@@ -42,7 +44,10 @@ fun CharacterListScreen(viewModel: CharacterListViewModel = hiltViewModel()) {
                     CharacterItem(
                         title = character.name,
                         imageUrl = character.thumbnail.imageUrl(),
-                        comicSize = character.comics.items?.size?:0
+                        comicSize = character.comics.items?.size?:0,
+                        onCharacterClick = {
+                            //Implement navigation detail
+                        }
                     )
                     if(index >= uiState.characterList.size - 1 &&
                         uiState.state != CharacterListViewModel.State.LOADING) {
