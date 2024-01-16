@@ -31,10 +31,6 @@ fun CharacterListScreen(
     viewModel: CharacterListViewModel = hiltViewModel(),
     onCharacterItemClick:(Int) -> Unit,
 ) {
-    val currentContext = LocalContext.current
-    BackHandler {
-        (currentContext as Activity).finish()
-    }
     val lazyState = rememberLazyListState()
     var loading by remember { mutableStateOf(true) }
     val uiState by remember { viewModel.uiState }
