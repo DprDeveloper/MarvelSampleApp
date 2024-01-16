@@ -8,16 +8,20 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import es.dpr.marvelsampleapp.ui.screens.character.detail.CharacterDetailScreen
 import es.dpr.marvelsampleapp.ui.screens.character.list.CharacterListScreen
+import es.dpr.marvelsampleapp.ui.screens.splash.SplashScreen
 
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = NavItem.CharacterList.route)
+        startDestination = NavItem.Splash.route)
     {
         composable(NavItem.Splash) {
-            //SplashScreen
+            SplashScreen{
+                navController.popBackStack()
+                navController.navigate(NavItem.CharacterList.route)
+            }
         }
         composable(NavItem.CharacterList) {
             CharacterListScreen { characterId ->
