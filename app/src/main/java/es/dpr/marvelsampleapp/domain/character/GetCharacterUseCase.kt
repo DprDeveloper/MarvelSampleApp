@@ -13,4 +13,10 @@ interface GetCharacterUseCase {
     fun getCharacterById(
         characterId: Int
     ): Flow<Result<CharacterDomainModel>>
+
+    fun getCharacterByStartName(
+        offset: Int,
+        limit: Int,
+        nameStartsWith: String,
+    ): Flow<Result<CharacterDomainModel>>
 }

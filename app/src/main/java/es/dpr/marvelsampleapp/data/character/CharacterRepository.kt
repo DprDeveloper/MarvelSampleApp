@@ -13,4 +13,10 @@ interface CharacterRepository {
     fun getCharacterById(
         characterId: Int,
     ): Flow<Response<CharacterDto>>
+
+    fun getCharacterByStartName(
+        offset: Int,
+        limit: Int,
+        nameStartsWith: String
+    ): Flow<Response<CharacterDto>>
 }

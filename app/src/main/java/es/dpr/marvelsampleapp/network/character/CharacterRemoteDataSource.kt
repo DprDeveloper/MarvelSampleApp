@@ -12,4 +12,10 @@ interface CharacterRemoteDataSource {
     suspend fun getCharacterById(
         characterId: Int,
     ): Response<CharacterDto>
+
+    suspend fun getCharacterByStartName(
+        offset: Int,
+        limit: Int,
+        nameStartsWith: String,
+    ): Response<CharacterDto>
 }

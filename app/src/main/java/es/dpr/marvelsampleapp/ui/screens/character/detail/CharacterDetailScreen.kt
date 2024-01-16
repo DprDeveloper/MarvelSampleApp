@@ -60,7 +60,7 @@ fun CharacterDetailScreen(
                     AsyncImage(
                         model = character.thumbnail.imageUrl(),
                         contentDescription = character.name,
-                        contentScale = ContentScale.Crop,
+                        contentScale = ContentScale.FillBounds,
                         modifier = Modifier
                             .fillMaxWidth()
                             .background(Color.LightGray)

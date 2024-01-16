@@ -13,4 +13,16 @@ class CharacterRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun getCharacterById(characterId: Int): Response<CharacterDto> =
         service.getCharacterById(characterId)
+
+    override suspend fun getCharacterByStartName(
+        offset: Int,
+        limit: Int,
+        nameStartsWith: String
+    ): Response<CharacterDto> =
+        service.getCharacterByStartName(
+            offset = offset,
+            limit = limit,
+            nameStartsWith = nameStartsWith
+        )
+
 }
