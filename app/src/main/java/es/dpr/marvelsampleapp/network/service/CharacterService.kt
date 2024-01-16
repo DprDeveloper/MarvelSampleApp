@@ -17,4 +17,10 @@ interface CharacterService {
     suspend fun getCharacterById(
         @Path("characterId") characterId: Int,
     ): Response<CharacterDto>
+    @GET("/v1/public/characters")
+    suspend fun getCharacterByStartName(
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int,
+        @Query("nameStartsWith") nameStartsWith: String,
+    ): Response<CharacterDto>
 }

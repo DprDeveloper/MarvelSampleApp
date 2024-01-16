@@ -1,8 +1,9 @@
 package es.dpr.marvelsampleapp.ui.screens.character.list
 
-import android.app.Activity
-import androidx.activity.compose.BackHandler
+
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -18,9 +19,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import es.dpr.marvelsampleapp.R
 import es.dpr.marvelsampleapp.designsystem.character.CharacterItem
+import es.dpr.marvelsampleapp.designsystem.character.CharacterSearcher
 import es.dpr.marvelsampleapp.designsystem.common.loader.AnimatedPreloader
 import es.dpr.marvelsampleapp.domain.model.common.imageUrl
 import es.dpr.marvelsampleapp.ui.screens.character.enums.State
@@ -31,9 +35,11 @@ fun CharacterListScreen(
     viewModel: CharacterListViewModel = hiltViewModel(),
     onCharacterItemClick:(Int) -> Unit,
 ) {
+    var context = LocalContext.current
     val lazyState = rememberLazyListState()
     var loading by remember { mutableStateOf(true) }
     val uiState by remember { viewModel.uiState }
+    val searcherErrorMessage = stringResource(id = R.string.searcher_empty)
 
     Surface(modifier = Modifier.fillMaxSize()) {
         if(loading){
@@ -43,8 +49,24 @@ fun CharacterListScreen(
                 )
             }
         }
+        CharacterSearcher(
+            text = uiState.searcherText,
+            onTextChange = {
+               viewModel.onSearcherTextChange(it)
+            },
+            onSearchClick = {
+                if(uiState.searcherText.isBlank()){
+                    Toast.makeText(context, searcherErrorMessage,Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.findCharacter()
+                }
+            },
+            onSearchClearClick = {
+                viewModel.clearCharacter()
+            }
+        )
         if(uiState.characterList.isNotEmpty()){
-            LazyColumn(state = lazyState){
+            LazyColumn(state = lazyState, modifier = Modifier.padding(vertical = 80.dp)){
                 itemsIndexed(items = uiState.characterList){ index, character ->
                     CharacterItem(
                         title = character.name,
@@ -55,7 +77,8 @@ fun CharacterListScreen(
                         }
                     )
                     if(index >= uiState.characterList.size - 1 &&
-                        uiState.state != State.LOADING) {
+                        uiState.state != State.LOADING &&
+                        uiState.characterList.size < uiState.characterTotal) {
                         viewModel.loadMoreCharacter()
                     }
                 }

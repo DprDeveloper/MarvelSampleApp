@@ -18,4 +18,17 @@ class CharacterRepositoryImpl @Inject constructor(
         flow {
             emit(network.getCharacterById(characterId))
         }
+
+    override fun getCharacterByStartName(
+        offset: Int,
+        limit: Int,
+        nameStartsWith: String
+    ): Flow<Response<CharacterDto>> =
+        flow {
+            emit(network.getCharacterByStartName(
+                offset = offset,
+                limit = limit,
+                nameStartsWith = nameStartsWith
+            ))
+        }
 }

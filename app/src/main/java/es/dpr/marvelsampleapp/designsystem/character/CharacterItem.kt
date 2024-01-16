@@ -43,7 +43,7 @@ fun CharacterItem(
             AsyncImage(
                 model = imageUrl,
                 contentDescription = title,
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.LightGray)

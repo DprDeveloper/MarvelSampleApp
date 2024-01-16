@@ -27,4 +27,18 @@ class GetCharacterUseCaseImpl @Inject constructor(
             }
     }
 
+    override fun getCharacterByStartName(
+        offset: Int,
+        limit: Int,
+        nameStartsWith: String
+    ): Flow<Result<CharacterDomainModel>> {
+        return characterRepository.getCharacterByStartName(
+            offset = offset,
+            limit = limit,
+            nameStartsWith = nameStartsWith
+        ).map {
+            characterMapper.toDomainModel(it)
+        }
+    }
+
 }
