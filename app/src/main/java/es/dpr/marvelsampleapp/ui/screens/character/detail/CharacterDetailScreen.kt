@@ -1,9 +1,6 @@
 package es.dpr.marvelsampleapp.ui.screens.character.detail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,8 +9,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
@@ -36,11 +31,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import es.dpr.marvelsampleapp.R
-import es.dpr.marvelsampleapp.designsystem.character.CharacterItem
 import es.dpr.marvelsampleapp.designsystem.character.ComicItem
 import es.dpr.marvelsampleapp.designsystem.common.loader.AnimatedPreloader
 import es.dpr.marvelsampleapp.domain.model.common.imageUrl
-import es.dpr.marvelsampleapp.ui.screens.character.list.CharacterListViewModel
+import es.dpr.marvelsampleapp.ui.screens.character.enums.State
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -122,18 +116,18 @@ fun CharacterDetailScreen(
     }
     LaunchedEffect(uiState.state){
         when(uiState.state){
-            CharacterDetailViewModel.State.INIT -> {
+            State.INIT -> {
                 loading = true
                 viewModel.getCharacterDetail(characterId)
                 viewModel.getComicsByCharacter(characterId)
             }
-            CharacterDetailViewModel.State.LOADING -> {
+            State.LOADING -> {
                 loading = true
             }
-            CharacterDetailViewModel.State.COMPLETE -> {
+            State.COMPLETE -> {
                 loading = false
             }
-            CharacterDetailViewModel.State.ERROR -> {
+            State.ERROR -> {
                 loading = false
             }
         }

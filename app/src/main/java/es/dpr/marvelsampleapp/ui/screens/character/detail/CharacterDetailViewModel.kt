@@ -8,7 +8,7 @@ import es.dpr.marvelsampleapp.domain.character.GetCharacterUseCase
 import es.dpr.marvelsampleapp.domain.comic.GetComicUseCase
 import es.dpr.marvelsampleapp.domain.model.character.CharacterDomainModel
 import es.dpr.marvelsampleapp.domain.model.comic.ComicDomainModel
-import es.dpr.marvelsampleapp.ui.screens.character.list.CharacterListViewModel
+import es.dpr.marvelsampleapp.ui.screens.character.enums.State
 import kotlinx.coroutines.launch
 
 import javax.inject.Inject
@@ -44,12 +44,5 @@ class CharacterDetailViewModel @Inject constructor(
                 state = State.COMPLETE
             )
         }
-    }
-
-    enum class State{
-        INIT,
-        LOADING,
-        ERROR,
-        COMPLETE,
     }
 }

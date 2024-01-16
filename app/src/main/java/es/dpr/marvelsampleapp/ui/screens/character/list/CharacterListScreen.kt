@@ -20,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import es.dpr.marvelsampleapp.designsystem.character.CharacterItem
 import es.dpr.marvelsampleapp.designsystem.common.loader.AnimatedPreloader
 import es.dpr.marvelsampleapp.domain.model.common.imageUrl
+import es.dpr.marvelsampleapp.ui.screens.character.enums.State
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -50,7 +51,7 @@ fun CharacterListScreen(
                         }
                     )
                     if(index >= uiState.characterList.size - 1 &&
-                        uiState.state != CharacterListViewModel.State.LOADING) {
+                        uiState.state != State.LOADING) {
                         viewModel.loadMoreCharacter()
                     }
                 }
@@ -59,17 +60,17 @@ fun CharacterListScreen(
     }
     LaunchedEffect(uiState.state){
         when(uiState.state){
-            CharacterListViewModel.State.INIT -> {
+            State.INIT -> {
                 loading = true
                 viewModel.getCharacter()
             }
-            CharacterListViewModel.State.LOADING -> {
+            State.LOADING -> {
                 loading = true
             }
-            CharacterListViewModel.State.COMPLETE -> {
+            State.COMPLETE -> {
                 loading = false
             }
-            CharacterListViewModel.State.ERROR -> {
+            State.ERROR -> {
                 loading = false
             }
         }
