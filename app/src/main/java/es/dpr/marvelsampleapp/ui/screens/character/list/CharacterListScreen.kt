@@ -1,5 +1,7 @@
 package es.dpr.marvelsampleapp.ui.screens.character.list
 
+import android.app.Activity
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import es.dpr.marvelsampleapp.designsystem.character.CharacterItem
@@ -26,7 +29,12 @@ import es.dpr.marvelsampleapp.ui.screens.character.enums.State
 @Composable
 fun CharacterListScreen(
     viewModel: CharacterListViewModel = hiltViewModel(),
+    onCharacterItemClick:(Int) -> Unit,
 ) {
+    val currentContext = LocalContext.current
+    BackHandler {
+        (currentContext as Activity).finish()
+    }
     val lazyState = rememberLazyListState()
     var loading by remember { mutableStateOf(true) }
     val uiState by remember { viewModel.uiState }
@@ -47,7 +55,7 @@ fun CharacterListScreen(
                         imageUrl = character.thumbnail.imageUrl(),
                         comicSize = character.comics.items?.size?:0,
                         onCharacterClick = {
-                            //Implement navigation detail
+                            onCharacterItemClick(character.id)
                         }
                     )
                     if(index >= uiState.characterList.size - 1 &&

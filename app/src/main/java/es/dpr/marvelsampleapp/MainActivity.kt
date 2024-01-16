@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import es.dpr.marvelsampleapp.ui.screens.character.detail.CharacterDetailScreen
+import es.dpr.marvelsampleapp.ui.navigation.Navigation
 import es.dpr.marvelsampleapp.ui.theme.MarvelSampleAppTheme
 
 @AndroidEntryPoint
@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    CharacterDetailScreen()
+                    Navigation()
                 }
             }
         }
