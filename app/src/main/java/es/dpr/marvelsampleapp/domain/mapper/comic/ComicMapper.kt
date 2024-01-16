@@ -6,6 +6,7 @@ import es.dpr.marvelsampleapp.domain.model.network.Response
 import es.dpr.marvelsampleapp.model.comic.ComicDto
 import es.dpr.marvelsampleapp.model.network.Data
 import es.dpr.marvelsampleapp.model.network.Result
+import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 class ComicMapper @Inject constructor(
@@ -22,7 +23,8 @@ class ComicMapper @Inject constructor(
                         id = it.id ,
                         title = it.title,
                         image = it.thumbnail ,
-                        date = it.dates.first().date.toString()
+                        date = SimpleDateFormat("dd/MM/yyyy")
+                            .format(it.dates.first().date)
                     )
                 },
                 total = value.data.total
