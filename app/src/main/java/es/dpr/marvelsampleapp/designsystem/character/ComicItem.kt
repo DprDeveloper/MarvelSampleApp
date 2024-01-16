@@ -59,7 +59,7 @@ fun ComicItem(
                         vertical = 4.dp
                     ),
                 text = date,
-                fontStyle = FontStyle.Normal,
+                fontStyle = FontStyle.Italic,
                 fontSize = 20.sp
             )
         }

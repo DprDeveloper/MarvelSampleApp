@@ -92,7 +92,7 @@ fun CharacterDetailScreen(
                                 horizontal = 8.dp,
                                 vertical = 4.dp
                             ),
-                        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec erat vehicula, consectetur lacus vel, posuere odio. Sed nulla odio, pulvinar sit amet tristique vestibulum, tristique vitae tellus. Vivamus porttitor velit non odio congue molestie. Donec porta velit vel tellus feugiat fermentum. Fusce viverra hendrerit est at mattis. Pellentesque ullamcorper ante sed magna pellentesque elementum. Nulla consectetur, diam id porttitor tempor, magna massa ultrices justo, sed vehicula sapien arcu non erat. Nunc nec lacus vel nibh lacinia auctor.",
+                        text = character.description,
                         fontStyle = FontStyle.Normal,
                         fontSize = 20.sp,
                         textAlign = TextAlign.Justify
