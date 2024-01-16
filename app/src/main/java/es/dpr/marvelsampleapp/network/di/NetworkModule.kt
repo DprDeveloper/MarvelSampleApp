@@ -1,10 +1,12 @@
 package es.dpr.marvelsampleapp.network.di
 
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import es.dpr.marvelsampleapp.network.service.CharacterService
+import es.dpr.marvelsampleapp.network.service.ComicService
 import es.dpr.marvelsampleapp.network.service.RequestInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -40,12 +42,17 @@ class NetworkModule {
         okHttpClient: OkHttpClient
     ): Retrofit = Retrofit.Builder()
         .baseUrl(apiEndPoint)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(
+            GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
+        ))
         .client(okHttpClient)
         .build()
 
     @Provides
     fun provideCharactersService(retrofit: Retrofit): CharacterService = retrofit.create()
+
+    @Provides
+    fun provideComicService(retrofit: Retrofit): ComicService = retrofit.create()
 
 }
 

@@ -33,7 +33,6 @@ fun ComicItem(
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.LightGray)
                 .aspectRatio(1f)
                 .weight(1f)
         )
