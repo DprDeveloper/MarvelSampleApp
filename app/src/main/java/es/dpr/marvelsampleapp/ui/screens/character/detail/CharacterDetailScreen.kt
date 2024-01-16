@@ -40,7 +40,7 @@ import es.dpr.marvelsampleapp.ui.screens.character.enums.State
 @Composable
 fun CharacterDetailScreen(
     viewModel: CharacterDetailViewModel = hiltViewModel(),
-    characterId: Int = 1011334,
+    characterId: Int,
 ) {
     var loading by remember { mutableStateOf(true) }
     val uiState by remember { viewModel.uiState }
