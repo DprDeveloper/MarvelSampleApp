@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import es.dpr.marvelsampleapp.domain.character.GetCharacterUseCase
 import es.dpr.marvelsampleapp.domain.model.character.CharacterDomainModel
+import es.dpr.marvelsampleapp.ui.screens.character.enums.State
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -38,13 +39,6 @@ class CharacterListViewModel @Inject constructor(
     fun loadMoreCharacter() {
         offset.value += limit.value
         getCharacter()
-    }
-
-    enum class State{
-        INIT,
-        LOADING,
-        ERROR,
-        COMPLETE,
     }
 }
 

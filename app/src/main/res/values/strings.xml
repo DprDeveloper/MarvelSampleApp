@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MarvelSampleApp</string>
     <string name="character_comic_size">Comics: %1$s</string>
+    <string name="character_detail_comic_title">Comics</string>
 </resources>
