@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import es.dpr.marvelsampleapp.domain.character.GetCharacterUseCase
+import es.dpr.marvelsampleapp.domain.comic.GetComicUseCase
 import es.dpr.marvelsampleapp.domain.model.character.CharacterDomainModel
+import es.dpr.marvelsampleapp.domain.model.comic.ComicDomainModel
 import es.dpr.marvelsampleapp.ui.screens.character.list.CharacterListViewModel
 import kotlinx.coroutines.launch
 
@@ -13,13 +15,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
-    private val characterUseCase: GetCharacterUseCase
+    private val characterUseCase: GetCharacterUseCase,
+    private val comicUseCase: GetComicUseCase
 ) : ViewModel() {
 
     val uiState = mutableStateOf(UiState())
     data class UiState(
         val state: State = State.INIT,
-        val character: CharacterDomainModel? = null
+        val character: CharacterDomainModel? = null,
+        val comics: List<ComicDomainModel> = emptyList(),
     )
 
     fun getCharacterDetail(characterId: Int) = viewModelScope.launch {
@@ -31,6 +35,17 @@ class CharacterDetailViewModel @Inject constructor(
             )
         }
     }
+
+    fun getComicsByCharacter(characterId: Int) = viewModelScope.launch {
+        uiState.value = uiState.value.copy(state = State.LOADING)
+        comicUseCase.getComicByCharacter(characterId = characterId).collect {
+            uiState.value = uiState.value.copy(
+                comics = it.data.results,
+                state = State.COMPLETE
+            )
+        }
+    }
+
     enum class State{
         INIT,
         LOADING,

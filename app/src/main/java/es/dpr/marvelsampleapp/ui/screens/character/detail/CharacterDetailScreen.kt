@@ -108,12 +108,12 @@ fun CharacterDetailScreen(
                         textAlign = TextAlign.Center
                     )
                 }
-                character.comics.items?.let {
-                    itemsIndexed(items = character.comics.items) { index, comic ->
+                if (uiState.comics.isNotEmpty()) {
+                    itemsIndexed(items = uiState.comics) { index, comic ->
                         ComicItem(
-                            name = comic.name,
-                            imageUrl = character.thumbnail.imageUrl(),
-                            date = "22/05/2023",
+                            name = comic.title,
+                            imageUrl = comic.image.imageUrl(),
+                            date = comic.date,
                         )
                     }
                 }
@@ -125,6 +125,7 @@ fun CharacterDetailScreen(
             CharacterDetailViewModel.State.INIT -> {
                 loading = true
                 viewModel.getCharacterDetail(characterId)
+                viewModel.getComicsByCharacter(characterId)
             }
             CharacterDetailViewModel.State.LOADING -> {
                 loading = true
