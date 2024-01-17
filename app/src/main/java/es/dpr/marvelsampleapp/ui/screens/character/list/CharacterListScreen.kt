@@ -129,7 +129,14 @@ fun CharacterListContent(
         }
     )
     if(characterList.isNotEmpty()){
-        LazyColumn(state = lazyState, modifier = Modifier.padding(vertical = 80.dp)){
+        LazyColumn(
+            state = lazyState,
+            modifier = Modifier
+                .padding(
+                    top = 80.dp,
+                    bottom = 20.dp
+                )
+        ){
             itemsIndexed(items = characterList){ index, character ->
                 CharacterItem(
                     title = character.name,
