@@ -133,7 +133,7 @@ fun CharacterListContent(
             state = lazyState,
             modifier = Modifier
                 .padding(
-                    top = 80.dp,
+                    top = 100.dp,
                     bottom = 20.dp
                 )
         ){

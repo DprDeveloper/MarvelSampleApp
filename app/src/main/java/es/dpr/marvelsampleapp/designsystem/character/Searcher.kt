@@ -45,6 +45,7 @@ fun CharacterSearcher(
                     }
                 )
             },
+            singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
