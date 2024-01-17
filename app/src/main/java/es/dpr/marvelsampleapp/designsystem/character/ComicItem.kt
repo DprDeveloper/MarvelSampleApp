@@ -1,14 +1,19 @@
 package es.dpr.marvelsampleapp.designsystem.character
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -26,42 +31,55 @@ fun ComicItem(
     imageUrl: String,
     date: String,
 ) {
-    Row(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-        AsyncImage(
-            model = imageUrl,
-            contentDescription = name,
-            contentScale = ContentScale.Fit,
+    Card(modifier = Modifier
+            .fillMaxWidth()
+            .padding(24.dp),
+        shape = RoundedCornerShape(16.dp),
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 4.dp
+        )
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f)
-                .weight(1f)
-        )
-        Column(modifier = Modifier
-            .weight(2f),
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
+                .padding(16.dp)) {
+            AsyncImage(
+                model = imageUrl,
+                contentDescription = name,
+                contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(
-                        horizontal = 8.dp,
-                        vertical = 4.dp
-                    ),
-                text = name,
-                fontStyle = FontStyle.Normal,
-                fontSize = 20.sp,
+                    .aspectRatio(1f)
+                    .weight(1f)
             )
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        horizontal = 8.dp,
-                        vertical = 4.dp
-                    ),
-                text = date,
-                fontStyle = FontStyle.Italic,
-                fontSize = 20.sp
-            )
+            Column(modifier = Modifier
+                .weight(2f),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            horizontal = 8.dp,
+                            vertical = 4.dp
+                        ),
+                    text = name,
+                    fontStyle = FontStyle.Normal,
+                    fontSize = 20.sp,
+                )
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            horizontal = 8.dp,
+                            vertical = 4.dp
+                        ),
+                    text = date,
+                    fontStyle = FontStyle.Italic,
+                    fontSize = 20.sp
+                )
+            }
         }
     }
+
 }

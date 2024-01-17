@@ -39,6 +39,7 @@ import es.dpr.marvelsampleapp.domain.model.character.CharacterDomainModel
 import es.dpr.marvelsampleapp.domain.model.comic.ComicDomainModel
 import es.dpr.marvelsampleapp.domain.model.common.imageUrl
 import es.dpr.marvelsampleapp.ui.screens.character.enums.State
+import es.dpr.marvelsampleapp.ui.theme.Typography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -119,6 +120,8 @@ fun CharacterDetailContent(
                             vertical = 4.dp
                         ),
                     text = character.name,
+                    style = Typography.titleLarge,
+                    lineHeight = 40.sp,
                     fontStyle = FontStyle.Normal,
                     fontWeight = FontWeight.Bold,
                     fontSize = 32.sp,
@@ -131,10 +134,16 @@ fun CharacterDetailContent(
                             horizontal = 8.dp,
                             vertical = 4.dp
                         ),
-                    text = character.description,
+                    text = if (character.description.isBlank())
+                        stringResource(id = R.string.without_description)
+                    else
+                        character.description,
                     fontStyle = FontStyle.Normal,
                     fontSize = 20.sp,
-                    textAlign = TextAlign.Justify
+                    textAlign = if (character.description.isBlank())
+                        TextAlign.Center
+                    else
+                        TextAlign.Justify
                 )
                 Text(
                     modifier = Modifier
@@ -153,6 +162,21 @@ fun CharacterDetailContent(
                         name = comic.title,
                         imageUrl = comic.image.imageUrl(),
                         date = comic.date,
+                    )
+                }
+            } else {
+                item {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = 8.dp,
+                                vertical = 4.dp
+                            ),
+                        text = stringResource(id = R.string.without_comics),
+                        fontStyle = FontStyle.Normal,
+                        fontSize = 20.sp,
+                        textAlign = TextAlign.Center
                     )
                 }
             }
