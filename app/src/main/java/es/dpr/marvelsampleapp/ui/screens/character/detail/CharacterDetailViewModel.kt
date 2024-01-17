@@ -29,20 +29,35 @@ class CharacterDetailViewModel @Inject constructor(
     fun getCharacterDetail(characterId: Int) = viewModelScope.launch {
         uiState.value = uiState.value.copy(state = State.LOADING)
         characterUseCase.getCharacterById(characterId = characterId).collect {
-            uiState.value = uiState.value.copy(
-                character = it.data.results.first(),
-                state = State.COMPLETE
-            )
+            if(it.error){
+                uiState.value = uiState.value.copy(state = State.ERROR)
+            } else {
+                requireNotNull(it.data)
+                uiState.value = uiState.value.copy(
+                    character = it.data.results.first(),
+                    state = State.COMPLETE
+                )
+            }
         }
     }
 
     fun getComicsByCharacter(characterId: Int) = viewModelScope.launch {
         uiState.value = uiState.value.copy(state = State.LOADING)
         comicUseCase.getComicByCharacter(characterId = characterId).collect {
-            uiState.value = uiState.value.copy(
-                comics = it.data.results,
-                state = State.COMPLETE
-            )
+            if(it.error){
+                uiState.value = uiState.value.copy(state = State.ERROR)
+            } else {
+                requireNotNull(it.data)
+                uiState.value = uiState.value.copy(
+                    comics = it.data.results,
+                    state = State.COMPLETE
+                )
+            }
+
         }
+    }
+
+    fun reload() {
+        uiState.value = uiState.value.copy(state = State.INIT)
     }
 }

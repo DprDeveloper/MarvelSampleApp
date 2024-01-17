@@ -35,11 +35,16 @@ class CharacterListViewModel @Inject constructor(
             offset = offset.value,
             limit = limit.value
         ).collect{
-            uiState.value = uiState.value.copy(
-                characterList = uiState.value.characterList + it.data.results,
-                state = State.COMPLETE,
-                characterTotal = it.data.total
-            )
+            if(it.error){
+                uiState.value = uiState.value.copy(state = State.ERROR)
+            } else {
+                requireNotNull(it.data)
+                uiState.value = uiState.value.copy(
+                    characterList = uiState.value.characterList + it.data.results,
+                    state = State.COMPLETE,
+                    characterTotal = it.data.total
+                )
+            }
         }
     }
 
@@ -51,11 +56,16 @@ class CharacterListViewModel @Inject constructor(
             limit = limit.value,
             nameStartsWith = uiState.value.searcherText
         ).collect{
-            uiState.value = uiState.value.copy(
-                characterList = uiState.value.characterList + it.data.results,
-                state = State.COMPLETE,
-                characterTotal = it.data.total
-            )
+            if(it.error){
+                uiState.value = uiState.value.copy(state = State.ERROR)
+            } else {
+                requireNotNull(it.data)
+                uiState.value = uiState.value.copy(
+                    characterList = uiState.value.characterList + it.data.results,
+                    state = State.COMPLETE,
+                    characterTotal = it.data.total
+                )
+            }
         }
     }
 
@@ -94,5 +104,8 @@ class CharacterListViewModel @Inject constructor(
         limit.value = 20
     }
 
+    fun reload() {
+        uiState.value = uiState.value.copy(state = State.INIT)
+    }
 }
 

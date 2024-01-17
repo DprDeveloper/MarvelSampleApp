@@ -2,5 +2,7 @@
     <string name="app_name">MarvelSampleApp</string>
     <string name="character_comic_size">Comics: %1$s</string>
     <string name="character_detail_comic_title">Comics</string>
-    <string name="searcher_empty">No es posible realizar búsquedas vacías</string>
+    <string name="searcher_empty">Empty searches are not possible</string>
+    <string name="generic_error">Error getting data</string>
+    <string name="reload_data">Try again</string>
 </resources>

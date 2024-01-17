@@ -14,21 +14,24 @@ class ComicMapper @Inject constructor(
     override fun toDomainModel(value: Response<ComicDto>): Result<ComicDomainModel> {
         return Result(
             code = value.code,
-            data = Data(
-                count = value.data.count,
-                limit = value.data.limit,
-                offset = value.data.offset,
-                results = value.data.results.map {
-                    ComicDomainModel(
-                        id = it.id ,
-                        title = it.title,
-                        image = it.thumbnail ,
-                        date = SimpleDateFormat("dd/MM/yyyy")
-                            .format(it.dates.first().date)
-                    )
-                },
-                total = value.data.total
-            )
+            error = value.data?.let { false } ?: true,
+            data = value.data?.let {
+                Data(
+                    count = value.data.count,
+                    limit = value.data.limit,
+                    offset = value.data.offset,
+                    results = value.data.results.map {
+                        ComicDomainModel(
+                            id = it.id ,
+                            title = it.title,
+                            image = it.thumbnail ,
+                            date = SimpleDateFormat("dd/MM/yyyy")
+                                .format(it.dates.first().date)
+                        )
+                    },
+                    total = value.data.total
+                )
+            }?: null
         )
     }
 
